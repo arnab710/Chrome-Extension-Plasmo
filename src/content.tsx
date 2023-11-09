@@ -1,11 +1,7 @@
 import cssText from "data-text:~style.css"
-import type { PlasmoCSConfig } from "plasmo"
+import { useEffect, useState } from "react"
 
-import { CountButton } from "~features/count-button"
-
-export const config: PlasmoCSConfig = {
-  matches: ["https://www.plasmo.com/*"]
-}
+import Modal from "~features/Modal"
 
 export const getStyle = () => {
   const style = document.createElement("style")
@@ -14,11 +10,24 @@ export const getStyle = () => {
 }
 
 const PlasmoOverlay = () => {
-  return (
-    <div className="plasmo-z-50 plasmo-flex plasmo-fixed plasmo-top-32 plasmo-right-8">
-      <CountButton />
-    </div>
-  )
+  const [showModal, setShowModal] = useState<boolean>(false)
+
+  useEffect(() => {
+    // Listen for messages from the background script
+    const handleMessage = (request, _sender, _sendResponse) => {
+      if (request.action === "toggleModal") {
+        setShowModal((prev) => !prev)
+      }
+    }
+
+    chrome.runtime.onMessage.addListener(handleMessage)
+
+    return () => {
+      chrome.runtime.onMessage.removeListener(handleMessage)
+    }
+  }, [])
+
+  return showModal ? <Modal /> : null
 }
 
 export default PlasmoOverlay
