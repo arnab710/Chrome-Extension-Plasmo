@@ -10,6 +10,7 @@ export const getStyle = () => {
 }
 
 const PlasmoOverlay: React.FC<{}> = () => {
+  //showing modal window state
   const [showModal, setShowModal] = useState<boolean>(false)
 
   useEffect(() => {
@@ -19,13 +20,16 @@ const PlasmoOverlay: React.FC<{}> = () => {
       _sender,
       _sendResponse
     ) => {
+      // Toggle modal visibility when receiving the 'toggleModal' action
       if (request.action === "toggleModal") {
         setShowModal((prev) => !prev)
       }
     }
 
+    // Adding a listener for messages from the background script
     chrome.runtime.onMessage.addListener(handleMessage)
 
+    //cleaning up
     return () => {
       chrome.runtime.onMessage.removeListener(handleMessage)
     }
