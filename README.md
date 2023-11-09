@@ -1,33 +1,11 @@
-This is a [Plasmo extension](https://docs.plasmo.com/) project bootstrapped with [`plasmo init`](https://www.npmjs.com/package/plasmo).
+# Plasmo AI-Powered Extension Documentation
 
-## Getting Started
+## Introduction
 
-First, run the development server:
+Welcome to our comprehensive guide for developing a Chrome extension using the Plasmo framework, a renowned toolset streamlined for extension development. Our primary objective is to leverage an advanced AI model to provide real-time, user-friendly responses in a streamed format.
 
-```bash
-pnpm dev
-# or
-npm run dev
-```
+This extension is designed to interact seamlessly with our custom-built backend API, developed using Next.js. The backend plays a pivotal role in processing and streaming AI-generated responses based on user interactions. For an in-depth understanding of our backend architecture and functionalities, you can visit our dedicated repository: [Next.js AI Backend](https://github.com/arnab710/Next.js-AI-Backend).
 
-Open your browser and load the appropriate development build. For example, if you are developing for the chrome browser, using manifest v3, use: `build/chrome-mv3-dev`.
+In this documentation, we will walk you through the key components and functionalities of our Plasmo extension, providing step-by-step instructions and insights into our development process.
 
-You can start editing the popup by modifying `popup.tsx`. It should auto-update as you make changes. To add an options page, simply add a `options.tsx` file to the root of the project, with a react component default exported. Likewise to add a content page, add a `content.ts` file to the root of the project, importing some module and do some logic, then reload the extension on your browser.
-
-For further guidance, [visit our Documentation](https://docs.plasmo.com/)
-
-## Making production build
-
-Run the following:
-
-```bash
-pnpm build
-# or
-npm run build
-```
-
-This should create a production bundle for your extension, ready to be zipped and published to the stores.
-
-## Submit to the webstores
-
-The easiest way to deploy your Plasmo extension is to use the built-in [bpp](https://bpp.browser.market) GitHub action. Prior to using this action however, make sure to build your extension and upload the first version to the store to establish the basic credentials. Then, simply follow [this setup instruction](https://docs.plasmo.com/framework/workflows/submit) and you should be on your way for automated submission!
+---
