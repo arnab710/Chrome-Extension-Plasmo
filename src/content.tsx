@@ -1,5 +1,5 @@
 import cssText from "data-text:~style.css"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import Modal from "~features/Modal"
 
@@ -9,12 +9,16 @@ export const getStyle = () => {
   return style
 }
 
-const PlasmoOverlay = () => {
+const PlasmoOverlay: React.FC<{}> = () => {
   const [showModal, setShowModal] = useState<boolean>(false)
 
   useEffect(() => {
-    // Listen for messages from the background script
-    const handleMessage = (request, _sender, _sendResponse) => {
+    // Listening for messages from the background script
+    const handleMessage = (
+      request: { action: String },
+      _sender,
+      _sendResponse
+    ) => {
       if (request.action === "toggleModal") {
         setShowModal((prev) => !prev)
       }
@@ -27,7 +31,7 @@ const PlasmoOverlay = () => {
     }
   }, [])
 
-  return showModal ? <Modal /> : null
+  return showModal ? <Modal setShowModal={setShowModal} /> : null
 }
 
 export default PlasmoOverlay
