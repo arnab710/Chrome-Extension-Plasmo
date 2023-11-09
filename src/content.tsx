@@ -15,11 +15,7 @@ const PlasmoOverlay: React.FC<{}> = () => {
 
   useEffect(() => {
     // Listening for messages from the background script
-    const handleMessage = (
-      request: { action: String },
-      _sender,
-      _sendResponse
-    ) => {
+    const handleMessage = (request: { action: String }) => {
       // Toggle modal visibility when receiving the 'toggleModal' action
       if (request.action === "toggleModal") {
         setShowModal((prev) => !prev)
