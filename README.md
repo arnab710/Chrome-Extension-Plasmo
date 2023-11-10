@@ -105,3 +105,98 @@ export default PlasmoOverlay
 **Rendering the Modal Component:**
 
 - `return showModal ? <Modal setShowModal={setShowModal} /> : null`: Conditionally renders the Modal component based on the showModal state. If showModal is true, the Modal component is displayed.
+
+### 4. Modal Component Implementation (`Modal.tsx`)
+
+The `Modal.tsx` file is the final piece of our extension, handling the user interface where interactions with the AI model take place.
+
+#### Detailed Explanation of `Modal.tsx`
+
+```typescript
+const Modal: React.FC<{
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>
+}> = ({ setShowModal }) => {
+  // useCompletion hook to receive the streamed data from API (inbuilt hook)
+  const {
+    completion,
+    input,
+    setInput,
+    stop,
+    isLoading,
+    handleInputChange,
+    handleSubmit
+  } = useCompletion({
+    api: "http://localhost:3000/api/response",
+    onError: (err: Error) => {
+      //if error exists
+      if (process.env.ENV === "development") console.error(err)
+    }
+  })
+
+  // submitting the form data
+  const handleSubmitCode = (e: React.FormEvent<HTMLFormElement>) => {
+    setInput("")
+    handleSubmit(e)
+  }
+
+  return (
+    <div className="modalWindow">
+      {/*Cross-sign*/}
+      <span
+        onClick={() => setShowModal(false)}
+        className="plasmo-absolute plasmo-top-[0.7rem] plasmo-right-[0.7rem] plasmo-text-[16px] plasmo-font-medium plasmo-cursor-pointer hover:plasmo-bg-slate-100 plasmo-h-[30px] plasmo-w-[30px] plasmo-flex plasmo-items-center plasmo-justify-center plasmo-rounded-full">
+        X
+      </span>
+
+      {/* AI response Div*/}
+      <div className="plasmo-p-4 plasmo-h-[370px] plasmo-overflow-y-auto plasmo-tracking-widest plasmo-text-sm plasmo-border-[1.5px] plasmo-border-gray-200 plasmo-rounded-lg">
+        {completion}
+      </div>
+
+      {/* Input Field */}
+      <form action="submit" onSubmit={handleSubmitCode}>
+        <div className="plasmo-rounded-full plasmo-p-2 plasmo-border-2 plasmo-mt-8 plasmo-h-[50px] plasmo-flex plasmo-justify-between plasmo-items-center plasmo-border-gray-200">
+          <input
+            type="text"
+            className="plasmo-w-[90%] plasmo-outline-none plasmo-bg-white"
+            placeholder="Enter Your Text... (Below 400 Characters)"
+            value={input}
+            onChange={handleInputChange}
+          />
+
+          {/* showing different buttons based on receiving Response */}
+          {isLoading ? (
+            <button type="button" onClick={stop}>
+              <AiOutlineStop />
+            </button>
+          ) : (
+            <button type="submit">
+              <AiOutlineSend />
+            </button>
+          )}
+        </div>
+      </form>
+    </div>
+  )
+}
+```
+
+**Modal Functional Component:**
+
+- The Modal component is a React functional component that receives a prop setShowModal. This function is used to toggle the visibility of the modal.
+
+**Streamlined Data Handling with useCompletion:**
+
+- The useCompletion hook is configured to connect to the API endpoint (http://localhost:3000/api/response). It manages the stream of data from the backend, handling both the submission of user inputs and the retrieval of AI responses.
+- It exposes several variables and functions such as completion, input, setInput, stop, isLoading, handleInputChange, and handleSubmit.
+
+**User Interface and Interactivity:**
+
+- Close Button: A clickable icon to close the modal, enhancing user control over the interface.
+  AI Response Display: A dedicated div to show the AI-generated responses, ensuring they are presented in a readable and scrollable format.
+- Input Field: Allows users to input their queries or commands, limited to 400 characters for optimal performance and usability.
+- Submit and Stop Buttons: Interactive buttons to submit new queries or stop the ongoing process. Icons are used for a clear and user-friendly experience.
+
+**Form Submission Logic:**
+
+- The form submission is handled by handleSubmitCode, which resets the input field and triggers the handleSubmit function from the useCompletion hook to send the user input to the backend.
