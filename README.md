@@ -9,3 +9,7 @@ This extension is designed to interact seamlessly with our custom-built **backen
 In this documentation, we will walk you through the key components and functionalities of our Plasmo extension, providing **step-by-step instructions** and insights into our development process.
 
 ---
+
+## Extension Demo Video
+
+https://github.com/arnab710/Chrome-Extension-Plasmo/assets/107277776/74554421-ff0f-485d-9405-7323cf06e9f2
