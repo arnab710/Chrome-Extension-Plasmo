@@ -35,3 +35,19 @@ https://github.com/arnab710/Chrome-Extension-Plasmo/assets/107277776/74554421-ff
      chrome.tabs.sendMessage(tab.id, { action: "toggleModal" })
    })
    ```
+
+   **chrome.action.onClicked.addListener:**
+
+- This line sets up a listener for the click event on the extension icon. Whenever the user clicks the icon, the specified callback function is executed.
+
+  **chrome.tabs.sendMessage:**
+
+  -Inside the callback function, this method sends a message to the content script of the current tab.
+
+  **tab.id:**
+
+  -This represents the ID of the current tab where the user clicked the extension icon.
+
+  **{ action: "toggleModal" }:**
+
+  -The message sent to the content script. It instructs the content script to toggle the visibility of the modal.
