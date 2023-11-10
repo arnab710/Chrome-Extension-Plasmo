@@ -20,7 +20,8 @@ https://github.com/arnab710/Chrome-Extension-Plasmo/assets/107277776/74554421-ff
 
 1. **Initiating the Interaction:**
 
-   - When the user clicks on the extension icon, our goal is to display a popup modal in the center of the browser window. This modal serves as the interface for users to send messages to the AI model and receive responses.
+   When the user clicks on the extension icon, our goal is to display a popup modal in the center of the browser window. This modal serves as the interface for users to send messages to the AI model and receive responses.
+
    - The popup is implemented using a content script that renders the user interface and handles user inputs.
 
 2. **Background Worker Configuration:**
@@ -36,18 +37,18 @@ https://github.com/arnab710/Chrome-Extension-Plasmo/assets/107277776/74554421-ff
    })
    ```
 
-   **chrome.action.onClicked.addListener:**
+**chrome.action.onClicked.addListener:**
 
 - This line sets up a listener for the click event on the extension icon. Whenever the user clicks the icon, the specified callback function is executed.
 
-  **chrome.tabs.sendMessage:**
+**chrome.tabs.sendMessage:**
 
-  -Inside the callback function, this method sends a message to the content script of the current tab.
+- Inside the callback function, this method sends a message to the content script of the current tab.
 
-  **tab.id:**
+**tab.id:**
 
-  -This represents the ID of the current tab where the user clicked the extension icon.
+- This represents the ID of the current tab where the user clicked the extension icon.
 
-  **{ action: "toggleModal" }:**
+**{ action: "toggleModal" }:**
 
-  -The message sent to the content script. It instructs the content script to toggle the visibility of the modal.
+- The message sent to the content script. It instructs the content script to toggle the visibility of the modal.
