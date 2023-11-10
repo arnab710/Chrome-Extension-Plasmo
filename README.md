@@ -95,11 +95,13 @@ export default PlasmoOverlay
 **Modal State Management:**
 
 - `const [showModal, setShowModal] = useState<boolean>(false)`: Declares a state variable showModal for tracking the visibility of the modal, along with a function setShowModal to update this state.
-  Listening for Background Script Messages:
+
+  **Listening for Background Script Messages:**
 
 - Inside useEffect, a function handleMessage is defined to handle incoming messages from the background script.
   `chrome.runtime.onMessage.addListener(handleMessage)`: Sets up the message listener.
   If handleMessage receives an action of "toggleModal", it toggles the state of showModal, thereby showing or hiding the modal.
-  Rendering the Modal Component:
+
+  **Rendering the Modal Component:**
 
 - `return showModal ? <Modal setShowModal={setShowModal} /> : null`: Conditionally renders the Modal component based on the showModal state. If showModal is true, the Modal component is displayed.
