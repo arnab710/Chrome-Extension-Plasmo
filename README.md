@@ -52,3 +52,54 @@ https://github.com/arnab710/Chrome-Extension-Plasmo/assets/107277776/74554421-ff
 **{ action: "toggleModal" }:**
 
 - The message sent to the content script. It instructs the content script to toggle the visibility of the modal.
+
+## Workflow
+
+### 3. Content Script: `Content.tsx`
+
+`Content.tsx` is a key component of our Chrome extension, serving as the content script responsible for the user interface and interaction logic.
+
+#### Detailed Breakdown of `Content.tsx`
+
+```typescript
+
+const PlasmoOverlay: React.FC<{}> = () => {
+  //showing modal window state
+  const [showModal, setShowModal] = useState<boolean>(false)
+
+  useEffect(() => {
+    // Listening for messages from the background script
+    const handleMessage = (request: { action: String }) => {
+      // Toggle modal visibility when receiving the 'toggleModal' action
+      if (request.action === "toggleModal") {
+        setShowModal((prev) => !prev)
+      }
+    }
+
+    // Adding a listener for messages from the background script
+    chrome.runtime.onMessage.addListener(handleMessage)
+
+    //cleaning up
+    return () => {
+      chrome.runtime.onMessage.removeListener(handleMessage)
+    }
+  }, [])
+
+  return showModal ? <Modal setShowModal={setShowModal} /> : null
+}
+
+export default PlasmoOverlay
+
+```
+
+**Modal State Management:**
+
+- `const [showModal, setShowModal] = useState<boolean>(false)`: Declares a state variable showModal for tracking the visibility of the modal, along with a function setShowModal to update this state.
+  Listening for Background Script Messages:
+
+- Inside useEffect, a function handleMessage is defined to handle incoming messages from the background script.
+  `chrome.runtime.onMessage.addListener(handleMessage)`: Sets up the message listener.
+  If handleMessage receives an action of "toggleModal", it toggles the state of showModal, thereby showing or hiding the modal.
+  Rendering the Modal Component:
+
+- `return showModal ? <Modal setShowModal={setShowModal} /> : null`: Conditionally renders the Modal component based on the showModal state. If showModal is true, the Modal component is displayed.
